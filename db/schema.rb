@@ -19,17 +19,15 @@ ActiveRecord::Schema.define(version: 20171127011229) do
     t.integer "user_id"
     t.string "tank_type"
     t.integer "number"
-    t.boolean "clean"
-    t.string "cleaned_by"
+    t.string "status", default: "Clean"
     t.integer "gyle"
     t.string "brand"
     t.integer "volume"
-    t.boolean "sanitized"
-    t.string "sanitized_by"
     t.boolean "dryhopped"
     t.date "last_acid"
     t.date "date_brewed"
     t.date "date_filtered"
+    t.string "initials"
   end
 
   create_table "users", force: :cascade do |t|

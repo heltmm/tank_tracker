@@ -1,0 +1,8 @@
+<h1>Tank Page</h1>
+
+<% @tanks.each do |tank| %>
+  <p><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
+
+<% end %>
+<%= render "brew_update_form" %>
+<%= render "cellar_update_form" %>

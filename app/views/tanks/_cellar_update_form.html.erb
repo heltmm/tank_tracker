@@ -1,14 +1,15 @@
-<%= render "layouts/errors", :object => @tank %>
 
-<%= form_for [@tank] do |f| %>
-  <%= f.label 'FV Number' %>
-  <%= f.text_field :number %><br>
-  <%= f.label :dirty %><br>
-  <%= f.dirty.check_box :dirty %><br>
-  <%= f.label :clean %><br>
-  <%= f.clean.check_box :clean %><br>
-  <%= f.label :sanitized %><br>
-  <%= f.sanitized.check_box :sanitized %><br>
-
-  <%= f.submit %>
+<p>Cellar Update</p>
+<%= form_tag("/fv_update", method: "patch") do %>
+  <%= label_tag(:number, "FV Number") %>
+  <%= number_field_tag(:number) %><br>
+  <%= label_tag(:status, "Dirty") %>
+  <%= check_box_tag(:status, "Dirty" ) %><br>
+  <%= label_tag(:status, "Clean") %>
+  <%= check_box_tag(:status, "Clean" ) %><br>
+  <%= label_tag(:status, "Sanitized") %>
+  <%= check_box_tag(:status, "Sanitized" ) %><br>
+  <%= label_tag(:initials, "Initials") %>
+  <%= text_field_tag(:initials) %><br>
+  <%= submit_tag("Update") %>
 <% end %>

@@ -1,14 +1,14 @@
 
 
-
-<%= form_tag("/update", method: "patch") do %>
+<p>Brew Update</p>
+<%= form_tag("/fv_update", method: "patch") do %>
   <%= label_tag(:number, "FV Number") %>
-  <%= number_field_tag(:number) %>
+  <%= number_field_tag(:number) %><br>
   <%= label_tag(:gyle, "Gyle Number") %>
-  <%= number_field_tag(:gyle) %>
+  <%= number_field_tag(:gyle) %><br>
   <%= label_tag(:brand, "Brand") %>
-  <%= text_field_tag(:brand) %>
+  <%= text_field_tag(:brand) %><br>
   <%= label_tag(:volume, "Volume") %>
-  <%= number_field_tag(:volume) %>
+  <%= number_field_tag(:volume) %><br>
   <%= submit_tag("Update") %>
 <% end %>

@@ -1,0 +1,14 @@
+<%= render "layouts/errors", :object => @tank %>
+
+<%= form_for [@tank] do |f| %>
+  <%= f.label 'FV Number' %>
+  <%= f.text_field :number %><br>
+  <%= f.label :gyle %><br>
+  <%= f.number_field :gyle %><br>
+  <%= f.label :brand %>
+  <%= f.text_field :brand %><br>
+  <%= f.label :volume %>
+  <%= f.number_field :volume %><br>
+
+  <%= f.submit %>
+<% end %>

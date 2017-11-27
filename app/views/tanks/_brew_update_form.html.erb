@@ -1,0 +1,8 @@
+
+
+
+<%= form_tag("/update", method: "patch") do %>
+<%= label_tag(:number, "FV Number") %>
+<%= number_field_tag(:number) %>
+  <%= submit_tag("Update") %>
+<% end %>

@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20171127011229) do
 
   create_table "tanks", force: :cascade do |t|
     t.integer "user_id"
-    t.string "type"
+    t.string "tank_type"
     t.integer "number"
     t.boolean "clean"
     t.string "cleaned_by"

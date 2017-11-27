@@ -2,7 +2,13 @@
 
 
 <%= form_tag("/update", method: "patch") do %>
-<%= label_tag(:number, "FV Number") %>
-<%= number_field_tag(:number) %>
+  <%= label_tag(:number, "FV Number") %>
+  <%= number_field_tag(:number) %>
+  <%= label_tag(:gyle, "Gyle Number") %>
+  <%= number_field_tag(:gyle) %>
+  <%= label_tag(:brand, "Brand") %>
+  <%= text_field_tag(:brand) %>
+  <%= label_tag(:volume, "Volume") %>
+  <%= number_field_tag(:volume) %>
   <%= submit_tag("Update") %>
 <% end %>

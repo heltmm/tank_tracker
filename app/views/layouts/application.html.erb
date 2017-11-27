@@ -9,6 +9,27 @@
   </head>
 
   <body>
+    <ul class="nav justify-content-end bg-secondary">
+    <% if current_user %>
+      <li class="nav-item">
+        <p class="nav-link">Welcome <%=current_user.email%></p>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/tanks/new">Add Tanks</a>
+      </li>
+    <%end%>
+    <li class="nav-item">
+      <a class="nav-link active" href="/">Home</a>
+    </li>
+    <li class="nav-item ">
+      <% if current_user %>
+        <p class="nav-link"><%= link_to('Logout', destroy_user_session_path, method: :delete) %></p>
+      <% else %>
+      <p class="nav-link"><%= link_to('Login', new_user_session_path)  %></p>
+      <% end %>
+    </li>
+
+  </ul>
     <%= yield %>
   </body>
 </html>

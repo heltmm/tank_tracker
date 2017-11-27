@@ -23,7 +23,7 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    @tank = Tank.find_by_number(cellar_update_params[:number])
+    @tank = Tank.find_by_number(cellar_update_params[:number], current_user)
     @tank.update(cellar_update_params)
     @tanks = Tank.where(user_id: current_user.id)
     render :logged_in
@@ -32,7 +32,7 @@ class TanksController < ApplicationController
   def brewer_update
     params = brewer_update_params
     params[:status] = "Active"
-    @tank = Tank.find_by_number(params[:number])
+    @tank = Tank.find_by_number(params[:number], current_user)
     @tank.update(params)
     @tanks = Tank.where(user_id: current_user.id)
     render :logged_in

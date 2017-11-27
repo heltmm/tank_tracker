@@ -23,13 +23,17 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    binding.pry
+    @tank = Tank.find_by_number(cellar_update_params[:number])
+    @tank.update(cellar_update_params)
     @tanks = Tank.where(user_id: current_user.id)
     render :logged_in
   end
 
   def brewer_update
-    binding.pry
+    params = brewer_update_params
+    params[:status] = "Active"
+    @tank = Tank.find_by_number(params[:number])
+    @tank.update(params)
     @tanks = Tank.where(user_id: current_user.id)
     render :logged_in
   end
@@ -49,7 +53,7 @@ class TanksController < ApplicationController
     {number: params.require(:number),
     gyle: params.require(:gyle),
     brand: params.require(:brand),
-    volue: params.require(:volume)}
+    volume: params.require(:volume)}
   end
 
 end

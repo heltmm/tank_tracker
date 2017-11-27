@@ -1,6 +1,7 @@
 
-<p>Cellar Update</p>
-<%= form_tag("/fv_update", method: "patch") do %>
+
+<%= form_tag("/cellar_update", method: "patch") do %>
+  <p>Cellar Update</p>
   <%= label_tag(:number, "FV Number") %>
   <%= number_field_tag(:number) %><br>
   <%= label_tag(:status, "Dirty") %>

@@ -4,5 +4,10 @@
   <p><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
 
 <% end %>
-<%= render "brew_update_form" %>
-<%= render "cellar_update_form" %>
+<div class="d-inline-block">
+  <%= render "brew_update_form" %>
+</div>
+
+<div class="d-inline-block">
+  <%= render "cellar_update_form" %>
+</div>

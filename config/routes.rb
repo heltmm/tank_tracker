@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   patch "cellar_update", to: "tanks#cellar_update"
   patch "brewer_update", to: "tanks#brewer_update"
+  
   resources :tanks
 
   root :to => 'tanks#index'

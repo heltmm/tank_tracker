@@ -1,7 +1,8 @@
 
 
-<p>Brew Update</p>
-<%= form_tag("/fv_update", method: "patch") do %>
+
+<%= form_tag("/brewer_update", method: "patch") do %>
+  <p>Brew Update</p>
   <%= label_tag(:number, "FV Number") %>
   <%= number_field_tag(:number) %><br>
   <%= label_tag(:gyle, "Gyle Number") %>

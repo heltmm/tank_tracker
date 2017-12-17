@@ -4,6 +4,6 @@
   <%= f.select(:tank_type, options_for_select([['FV', 'FV'], ['BBT', 'BBT']])) %><br>
   <%= f.label :number %><br>
   <%= f.number_field :number %><br>
-  <%= f.hidden_field(:user_id, :value => current_user.id) %>
+  <%= f.hidden_field(:brewery_id, :value => current_user.brewery.id) %>
   <%= f.submit %>
 <% end %>

@@ -1,7 +1,7 @@
 class CreateTanks < ActiveRecord::Migration[5.1]
   def change
     create_table :tanks do |t|
-      t.column :user_id, :integer
+      t.column :brewery_id, :integer
       t.column :tank_type, :string
       t.column :number, :integer
       t.column :status, :string, default: "Clean"

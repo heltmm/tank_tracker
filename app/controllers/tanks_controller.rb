@@ -51,7 +51,12 @@ class TanksController < ApplicationController
   end
 
   def transfer_update
-
+    binding.pry
+      @start_tank = Tank.find_by_number(update_params[:from_number], current_user).first
+      @finish_tank = Tank.find_by_number(update_params[:to_number], current_user).first
+      if update_params[:all] === true
+        @finish_tank.update({:volume => @start_tank.volue, :brand => @start_tank.brand, :gyle => @start_tank.gyle })
+      end
   end
 
   def package_update
@@ -63,9 +68,8 @@ class TanksController < ApplicationController
   end
 
   def acid_update
-
-    @tank = Tank.find_by_number(params[:number], current_user).first
-    @tank.update(acid_update_params)
+    @tank = Tank.find_by_number(update_params[:number], current_user).first
+    @tank.update(update_params)
     @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
     render :logged_in
   end
@@ -78,18 +82,7 @@ class TanksController < ApplicationController
   end
 
   def update_params
-    {number: params.permit(:number),
-    status: params.permit(:status),
-    initials: params.permit(:initials),
-    brand: params.permit(:brand),
-    gyle: params.permit(:gyle),
-    volume: params.permit(:volume),
-    last_acid: params.permit(:last_acid),
-    bbt_number: params.permit(:bbt_number),
-    refill: params.permit(:refill),
-    from_number: params.permit(:from_number),
-    to_number: params.permit(:to_number),
-    all: params.permit(:all)}
+    update_params = params.permit(:number, :brewer_id, :status, :initials, :brand, :gyle, :volume, :last_acid, :bbt_number, :refill, :from_number, :to_number, :all )
   end
 
 end

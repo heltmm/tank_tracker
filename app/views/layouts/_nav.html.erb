@@ -11,10 +11,8 @@
           <% if tank.tank_type === "FV" %>
 
 
-            <% if needs_acid %>
+            <% if needs_acid(tank.last_acid, 3) %>
               <% acid = "text-danger" %>
-            <% else %>
-
             <% end %>
             <p>
               FV<%= tank.number%> Last Acid: <span class="<%= acid %>"><%= tank.last_acid%></span>

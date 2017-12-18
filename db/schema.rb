@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171218162406) do
   create_table "breweries", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
+    t.integer "acid_frequency", default: 3
   end
 
   create_table "tanks", force: :cascade do |t|

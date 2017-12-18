@@ -1,9 +1,8 @@
 <h1>Tank Page</h1>
 
 <% @tanks.each do |tank| %>
-  <p><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
-
-
+  <div class="d-inline-block">
+    <p><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
     <% case tank.status %>
     <% when "Sanitized" %>
       <% type = 'success' %>
@@ -16,38 +15,39 @@
     <% end %>
 
     <%= image_tag('fv.png', class: "bg-#{type}")%>
-
+  </div>
 <% end %><br>
 
-
-<div class="d-inline-block">
-  <div class='card'>
-    <%= render "brew_update_form" %>
+<div class="bottom">
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "brew_update_form" %>
+    </div>
   </div>
-</div>
 
-<div class="d-inline-block">
-  <div class='card'>
-    <%= render "cellar_update_form" %>
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "cellar_update_form" %>
+    </div>
   </div>
-</div>
 
-<div class="d-inline-block">
-  <div class='card'>
-    <%= render "transfer_update_form" %>
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "transfer_update_form" %>
+    </div>
   </div>
-</div>
 
 
-<div class="d-inline-block">
-  <div class='card'>
-    <%= render "package_update_form" %>
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "package_update_form" %>
+    </div>
   </div>
-</div>
 
-<div class="d-inline-block">
-  <div class='card'>
-    <%= render "overide_form" %>
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "overide_form" %>
+    </div>
   </div>
+  <p>* put BBT before BBT Number, ex: BBT5</p>
 </div>
-<p>* put BBT before BBT Number, ex: BBT5</p>

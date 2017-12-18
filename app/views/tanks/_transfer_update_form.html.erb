@@ -1,14 +1,14 @@
-<%= render "layouts/errors", :object => @tank %>
 
-<%= form_for [@tank] do |f| %>
-  <%= f.label 'FV Number' %>
-  <%= f.text_field :number %><br>
-  <%= f.label :gyle %><br>
-  <%= f.number_field :gyle %><br>
-  <%= f.label :brand %>
-  <%= f.text_field :brand %><br>
-  <%= f.label :volume %>
-  <%= f.number_field :volume %><br>
+<%= form_tag("/transfer_update", method: "patch") do %>
+  <p>Transfer Update</p>
+  <%= label_tag(:from_number, "From FV") %>
+  <%= number_field_tag(:from_number) %><br>
+  <%= label_tag(:to_number, "To FV") %>
+  <%= number_field_tag(:to_number) %><br>
+  <%= label_tag(:volume, "Volume") %>
+  <%= number_field_tag(:volume) %><br>
+  <%= label_tag(:all, "Transfer All") %>
+  <%= check_box_tag(:all, true ) %><br>
 
-  <%= f.submit %>
+  <%= submit_tag("Update") %>
 <% end %>

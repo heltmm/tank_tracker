@@ -2,6 +2,7 @@ class TanksController < ApplicationController
   def index
     if current_user
       @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      @tank = Tank.new
       render :logged_in
     else
       render :index
@@ -13,7 +14,6 @@ class TanksController < ApplicationController
   end
 
   def create
-    binding.pry
     @tank = Tank.new(tank_params)
     if @tank.save
       flash[:notice] = "Tank successfully added!"
@@ -22,6 +22,12 @@ class TanksController < ApplicationController
       render :new
     end
   end
+
+  def update
+    binding.pry
+  end
+
+
 
   def cellar_update
     @tank = Tank.find_by_number(cellar_update_params[:number], current_user)

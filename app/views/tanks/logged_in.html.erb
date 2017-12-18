@@ -5,22 +5,33 @@
   <%= image_tag('fv.png') %>
 <% end %><br>
 <div class="d-inline-block">
-  <%= render "brew_update_form" %>
+  <div class='card'>
+    <%= render "brew_update_form" %>
+  </div>
 </div>
 
 <div class="d-inline-block">
-  <%= render "cellar_update_form" %>
+  <div class='card'>
+    <%= render "cellar_update_form" %>
+  </div>
 </div>
 
 <div class="d-inline-block">
-  <%= render "transfer_update_form" %>
+  <div class='card'>
+    <%= render "transfer_update_form" %>
+  </div>
 </div>
 
 
 <div class="d-inline-block">
-  <%= render "package_update_form" %>
+  <div class='card'>
+    <%= render "package_update_form" %>
+  </div>
 </div>
 
 <div class="d-inline-block">
-  <%= render "overide_form" %>
+  <div class='card'>
+    <%= render "overide_form" %>
+  </div>
 </div>
+<p>* put BBT before BBT Number, ex: BBT5</p>

@@ -26,17 +26,23 @@ class TanksController < ApplicationController
   def cellar_update
     @tank = Tank.find_by_number(cellar_update_params[:number], current_user)
     @tank.update(cellar_update_params)
-    @tanks = Tank.where(user_id: current_user.id)
+    @tanks = Tank.where(brewery_id: current_user.brewery.id)
     render :logged_in
   end
 
   def brewer_update
     params = brewer_update_params
     params[:status] = "Active"
-    @tank = Tank.find_by_number(params[:number], current_user)
-    @tank.update(params)
-    @tanks = Tank.where(user_id: current_user.id)
-    render :logged_in
+    @tank = Tank.find_by_number(params[:number], current_user).first
+    binding.pry
+    if @tank.status === "Sanitized"
+      @tank.update(params)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      render :logged_in
+    else
+
+      render :logged_in
+    end
   end
 
   def transfer_update

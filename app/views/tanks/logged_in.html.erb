@@ -3,19 +3,26 @@
 
 <% @tanks.each do |tank| %>
   <div class="d-inline-block">
-    <p><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
-    <% case tank.status %>
-    <% when "Sanitized" %>
-      <% type = 'success' %>
-    <% when "Clean" %>
-       <% type = 'info' %>
-    <% when "Dirty" %>
-       <% type = 'danger' %>
-    <% else %>
-         <% type = '' %>
-    <% end %>
+    <div class='tank'>
+      <p class='top'><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
+      <% case tank.status %>
+      <% when "Sanitized" %>
+        <% type = 'success' %>
+        <p><%= tank.initials %></p>
+      <% when "Clean" %>
+        <% type = 'info' %>
+      <% when "Dirty" %>
+        <% type = 'danger' %>
+      <% when "Active" %>
+        <p class="centered"><%= tank.gyle %><br>
+        <%= tank.brand %><br>
+        <%= tank.volume %></p>
+      <% else %>
+           <% type = '' %>
+      <% end %>
 
-    <%= image_tag('fv.png', class: "bg-#{type}")%>
+      <%= image_tag('fv.png', class: "bg-#{type}")%>
+    </div>
   </div>
 <% end %><br>
 

@@ -2,12 +2,12 @@
 <%= form_tag("/brewer_update", method: "patch") do %>
   <p>Brew Update</p>
   <%= label_tag(:number, "FV Number") %>
-  <%= number_field_tag(:number) %><br>
+  <%= number_field_tag(:number, nil, :required => true) %><br>
   <%= label_tag(:gyle, "Gyle Number") %>
-  <%= number_field_tag(:gyle) %><br>
+  <%= number_field_tag(:gyle, nil, :required => true) %><br>
   <%= label_tag(:brand, "Brand") %>
-  <%= text_field_tag(:brand) %><br>
+  <%= text_field_tag(:brand, nil, :required => true) %><br>
   <%= label_tag(:volume, "Volume") %>
-  <%= number_field_tag(:volume) %><br>
+  <%= number_field_tag(:volume, nil, :required => true) %><br>
   <%= submit_tag("Update") %>
 <% end %>

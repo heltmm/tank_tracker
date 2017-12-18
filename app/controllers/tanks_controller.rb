@@ -40,7 +40,7 @@ class TanksController < ApplicationController
       render :logged_in
     else
       @tanks = Tank.where(brewery_id: current_user.brewery.id)
-      flash["alert"] = "Beer can only go into a sanitzed tank!"
+      flash["alert"] = "Beer can only go into a Sanitzed tank!"
       render :logged_in
     end
   end
@@ -65,16 +65,16 @@ class TanksController < ApplicationController
   end
 
   def cellar_update_params
-    {number: params.require(:number),
+    {number: params.require(:number).reject{ |_, v| v.blank? },
     status: params.require(:status),
-    initials: params.require(:initials)}
+    initials: params.require(:initials)}.reject{ |_, v| v.blank? }
   end
 
   def brewer_update_params
     {number: params.require(:number),
     gyle: params.require(:gyle),
     brand: params.require(:brand),
-    volume: params.require(:volume)}
+    volume: params.require(:volume)}.reject{ |_, v| v.blank? }
   end
 
 end

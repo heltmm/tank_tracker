@@ -2,11 +2,11 @@
 <%= form_tag("/transfer_update", method: "patch") do %>
   <p>Transfer Update</p>
   <%= label_tag(:from_number, "From FV") %>
-  <%= number_field_tag(:from_number) %><br>
+  <%= number_field_tag(:from_number, nil, :required => true) %><br>
   <%= label_tag(:to_number, "To FV") %>
-  <%= number_field_tag(:to_number) %><br>
+  <%= number_field_tag(:to_number, nil, :required => true) %><br>
   <%= label_tag(:volume, "Volume") %>
-  <%= number_field_tag(:volume) %><br>
+  <%= number_field_tag(:volume, nil, :required => true) %><br>
   <%= label_tag(:all, "Transfer All") %>
   <%= check_box_tag(:all, true ) %><br>
 

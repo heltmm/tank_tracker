@@ -25,24 +25,22 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    @tank = Tank.find_by_number(cellar_update_params[:number], current_user).first
-    if cellar_update_params[:status] === "Sanitized" and @tank.status != "Clean"
+    @tank = Tank.find_by_number(tank_params[:number], current_user).first
+    if tank_params[:status] === "Sanitized" and @tank.status != "Clean"
       flash["alert"] = "Tank must be cleaned before Sanitized!"
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       render :logged_in
     else
-      @tank.update(cellar_update_params)
+      @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       render :logged_in
     end
   end
 
   def brewer_update
-    params = brewer_update_params
-    params[:status] = "Active"
-    @tank = Tank.find_by_number(params[:number], current_user).first
+    @tank = Tank.find_by_number(tank_params[:number], current_user).first
     if @tank.status === "Sanitized"
-      @tank.update(params)
+      @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       render :logged_in
     else
@@ -65,9 +63,10 @@ class TanksController < ApplicationController
   end
 
   def acid_update
-    binding.pry
+
     @tank = Tank.find_by_number(params[:number], current_user).first
     @tank.update(acid_update_params)
+    @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
     render :logged_in
   end
 
@@ -75,25 +74,22 @@ class TanksController < ApplicationController
 
   private
   def tank_params
-    params.require(:tank).permit(:tank_type, :number, :brewery_id)
+    params.require(:tank).permit(:brewery_id, :tank_type, :number, :status, :gyle, :brand, :volume, :dryhopped, :last_acid, :date_brewed, :date_filtered, :initials)
   end
 
-  def cellar_update_params
-    {number: params.require(:number),
-    status: params.require(:status),
-    initials: params.require(:initials)}
-  end
-
-  def brewer_update_params
-    {number: params.require(:number),
-    gyle: params.require(:gyle),
-    brand: params.require(:brand),
-    volume: params.require(:volume)}
-  end
-
-  def acid_update_params
-    {number: params.require(:number),
-    last_acid: params.require(:last_acid)}
+  def update_params
+    {number: params.permit(:number),
+    status: params.permit(:status),
+    initials: params.permit(:initials),
+    brand: params.permit(:brand),
+    gyle: params.permit(:gyle),
+    volume: params.permit(:volume),
+    last_acid: params.permit(:last_acid),
+    bbt_number: params.permit(:bbt_number),
+    refill: params.permit(:refill),
+    from_number: params.permit(:from_number),
+    to_number: params.permit(:to_number),
+    all: params.permit(:all)}
   end
 
 end

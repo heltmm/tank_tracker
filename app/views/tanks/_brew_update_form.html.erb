@@ -1,13 +1,14 @@
 
-<%= form_tag("/brewer_update", method: "patch") do %>
+<%= form_for @tank, :url => {:action => "brewer_update"}, :method => "patch" do |f|%>
   <p>Brew Update</p>
-  <%= label_tag(:number, "FV Number") %>
-  <%= number_field_tag(:number, nil, :required => true) %><br>
-  <%= label_tag(:gyle, "Gyle Number") %>
-  <%= number_field_tag(:gyle, nil, :required => true) %><br>
-  <%= label_tag(:brand, "Brand") %>
-  <%= text_field_tag(:brand, nil, :required => true) %><br>
-  <%= label_tag(:volume, "Volume") %>
-  <%= number_field_tag(:volume, nil, :required => true) %><br>
-  <%= submit_tag("Update") %>
+  <%= f.hidden_field(:status, :value => "Active") %>
+  <%= f.label(:number, "FV Number") %>
+  <%= f.number_field(:number, :required => true) %><br>
+  <%= f.label(:gyle, "Gyle Number") %>
+  <%= f.number_field(:gyle, :required => true) %><br>
+  <%= f.label(:brand, "Brand") %>
+  <%= f.text_field(:brand, :required => true) %><br>
+  <%= f.label(:volume, "Volume") %>
+  <%= f.number_field(:volume, :required => true) %><br>
+  <%= f.submit("Update") %>
 <% end %>

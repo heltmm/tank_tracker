@@ -1,15 +1,15 @@
 
-<%= form_tag("/package_update", method: "patch") do %>
+<%= form_for @tank, :url => {:action => "overide"}, :method => "patch" do |f|%>
   <p>Overide Tank</p>
-  <%= label_tag(:number, "FV Number") %>
-  <%= number_field_tag(:number, nil, :required => true) %><br>
-  <%= label_tag(:volume, "Volume") %>
-  <%= number_field_tag(:volume, nil, :required => true) %><br>
-  <%= label_tag(:brand, "Brand") %>
-  <%= text_field_tag(:brand, nil, :required => true) %><br>
-  <%= label_tag(:gyle, "Gyle") %>
-  <%= number_field_tag(:gyle, nil, :required => true) %><br>
+  <%= f.label(:number, "FV Number") %>
+  <%= f.number_field(:number, :required => true) %><br>
+  <%= f.label(:volume, "Volume") %>
+  <%= f.number_field(:volume, :required => true) %><br>
+  <%= f.label(:brand, "Brand") %>
+  <%= f.text_field(:brand, :required => true) %><br>
+  <%= f.label(:gyle, "Gyle") %>
+  <%= f.number_field(:gyle, :required => true) %><br>
 
 
-  <%= submit_tag("Update") %>
+  <%= f.submit("Update") %>
 <% end %>

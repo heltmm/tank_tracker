@@ -9,12 +9,20 @@
       <% if @tanks %>
         <% @tanks.each do |tank| %>
           <% if tank.tank_type === "FV" %>
+
+
+            <% if needs_acid %>
+              <% acid = "text-danger" %>
+            <% else %>
+
+            <% end %>
             <p>
-              FV<%= tank.number%> Last Acid: <%= tank.last_acid%>  Update:  <%= form_tag("/acid_update", method: "patch") do %>
-                                                                              <%= hidden_field_tag(:number, tank.number) %>
-                                                                              <%= date_field_tag :last_acid, :required => true %>
-                                                                              <%= submit_tag("OK") %>
-                                                                            <% end %>
+              FV<%= tank.number%> Last Acid: <span class="<%= acid %>"><%= tank.last_acid%></span>
+              Update:   <%= form_tag("/acid_update", method: "patch") do %>
+                          <%= hidden_field_tag(:number, tank.number) %>
+                          <%= date_field_tag :last_acid, :required => true %>
+                          <%= submit_tag("OK") %>
+                        <% end %>
             </p>
           <% end %>
         <% end %>

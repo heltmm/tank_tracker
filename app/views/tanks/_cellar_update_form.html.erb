@@ -1,15 +1,15 @@
 
-<%= form_tag("/cellar_update", method: "patch") do %>
+<%= form_for @tank, :url => {:action => "cellar_update"}, :method => "patch" do |f|%>
   <p>Cellar Update</p>
-  <%= label_tag(:number, "Tank Number") %>
-  <%= number_field_tag(:number, nil, :required => true) %><br>
-  <%= label_tag(:status, "Dirty") %>
-  <%= check_box_tag(:status, "Dirty" ) %><br>
-  <%= label_tag(:status, "Clean") %>
-  <%= check_box_tag(:status, "Clean" ) %><br>
-  <%= label_tag(:status, "Sanitized") %>
-  <%= check_box_tag(:status, "Sanitized" ) %><br>
-  <%= label_tag(:initials, "Initials") %>
-  <%= text_field_tag(:initials, nil, :required => true) %><br>
-  <%= submit_tag("Update") %>
+  <%= f.label(:number, "Tank Number") %>
+  <%= f.number_field(:number, :required => true) %><br>
+  <%= f.label(:status, "Dirty") %>
+  <%= f.radio_button(:status, "Dirty" ) %><br>
+  <%= f.label(:status, "Clean") %>
+  <%= f.radio_button(:status, "Clean" ) %><br>
+  <%= f.label(:status, "Sanitized") %>
+  <%= f.radio_button(:status, "Sanitized" ) %><br>
+  <%= f.label(:initials, "Initials") %>
+  <%= f.text_field(:initials, :required => true) %><br>
+  <%= f.submit("Update") %>
 <% end %>

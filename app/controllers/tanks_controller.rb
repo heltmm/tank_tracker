@@ -64,6 +64,13 @@ class TanksController < ApplicationController
 
   end
 
+  def acid_update
+    binding.pry
+    @tank = Tank.find_by_number(params[:number], current_user).first
+    @tank.update(acid_update_params)
+    render :logged_in
+  end
+
 
 
   private
@@ -82,6 +89,11 @@ class TanksController < ApplicationController
     gyle: params.require(:gyle),
     brand: params.require(:brand),
     volume: params.require(:volume)}
+  end
+
+  def acid_update_params
+    {number: params.require(:number),
+    last_acid: params.require(:last_acid)}
   end
 
 end

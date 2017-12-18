@@ -5,14 +5,14 @@
     <a class="nav-link dropdown-toggle white" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Acid Tracking
     </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    <div class="dropdown-menu" id="acid-dropdown" aria-labelledby="navbarDropdownMenuLink">
       <% if @tanks %>
         <% @tanks.each do |tank| %>
           <% if tank.tank_type === "FV" %>
             <p>
               FV<%= tank.number%> Last Acid: <%= tank.last_acid%>  Update:  <%= form_tag("/acid_update", method: "patch") do %>
-                                                                              <%= hidden_field_tag(:number, :value => tank.number) %>
-                                                                              <%= number_field_tag :last_acid, :required => true %>
+                                                                              <%= hidden_field_tag(:number, tank.number) %>
+                                                                              <%= date_field_tag :last_acid, :required => true %>
                                                                               <%= submit_tag("OK") %>
                                                                             <% end %>
             </p>

@@ -24,10 +24,16 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    @tank = Tank.find_by_number(cellar_update_params[:number], current_user)
-    @tank.update(cellar_update_params)
-    @tanks = Tank.where(brewery_id: current_user.brewery.id)
-    render :logged_in
+    @tank = Tank.find_by_number(cellar_update_params[:number], current_user).first
+    if cellar_update_params[:status] === "Sanitized" and @tank.status != "Clean"
+      flash["alert"] = "Tank must be cleaned before Sanitized!"
+      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      render :logged_in
+    else
+      @tank.update(cellar_update_params)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      render :logged_in
+    end
   end
 
   def brewer_update
@@ -65,16 +71,16 @@ class TanksController < ApplicationController
   end
 
   def cellar_update_params
-    {number: params.require(:number).reject{ |_, v| v.blank? },
+    {number: params.require(:number),
     status: params.require(:status),
-    initials: params.require(:initials)}.reject{ |_, v| v.blank? }
+    initials: params.require(:initials)}
   end
 
   def brewer_update_params
     {number: params.require(:number),
     gyle: params.require(:gyle),
     brand: params.require(:brand),
-    volume: params.require(:volume)}.reject{ |_, v| v.blank? }
+    volume: params.require(:volume)}
   end
 
 end

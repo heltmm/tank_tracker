@@ -2,8 +2,24 @@
 
 <% @tanks.each do |tank| %>
   <p><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
-  <%= image_tag('fv.png') %>
+
+
+    <% case tank.status %>
+    <% when "Sanitized" %>
+      <% type = 'success' %>
+    <% when "Clean" %>
+       <% type = 'info' %>
+    <% when "Dirty" %>
+       <% type = 'danger' %>
+    <% else %>
+         <% type = '' %>
+    <% end %>
+
+    <%= image_tag('fv.png', class: "bg-#{type}")%>
+
 <% end %><br>
+
+
 <div class="d-inline-block">
   <div class='card'>
     <%= render "brew_update_form" %>

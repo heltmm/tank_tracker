@@ -24,7 +24,6 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    binding.pry
     @tank = Tank.find_by_number(cellar_update_params[:number], current_user)
     @tank.update(cellar_update_params)
     @tanks = Tank.where(brewery_id: current_user.brewery.id)

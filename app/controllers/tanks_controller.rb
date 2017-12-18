@@ -10,6 +10,7 @@ class TanksController < ApplicationController
   end
 
   def new
+    @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
     @tank = Tank.new
   end
 

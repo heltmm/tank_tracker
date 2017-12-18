@@ -1,7 +1,7 @@
 
 <%= form_tag("/cellar_update", method: "patch") do %>
   <p>Cellar Update</p>
-  <%= label_tag(:number, "FV Number") %>
+  <%= label_tag(:number, "Tank Number") %>
   <%= number_field_tag(:number, nil, :required => true) %><br>
   <%= label_tag(:status, "Dirty") %>
   <%= check_box_tag(:status, "Dirty" ) %><br>

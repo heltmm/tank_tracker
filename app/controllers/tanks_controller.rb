@@ -1,7 +1,7 @@
 class TanksController < ApplicationController
   def index
     if current_user
-      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       @tank = Tank.new
       render :logged_in
     else
@@ -27,11 +27,11 @@ class TanksController < ApplicationController
     @tank = Tank.find_by_number(cellar_update_params[:number], current_user).first
     if cellar_update_params[:status] === "Sanitized" and @tank.status != "Clean"
       flash["alert"] = "Tank must be cleaned before Sanitized!"
-      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       render :logged_in
     else
       @tank.update(cellar_update_params)
-      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       render :logged_in
     end
   end
@@ -42,10 +42,10 @@ class TanksController < ApplicationController
     @tank = Tank.find_by_number(params[:number], current_user).first
     if @tank.status === "Sanitized"
       @tank.update(params)
-      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       render :logged_in
     else
-      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       flash["alert"] = "Beer can only go into a Sanitzed tank!"
       render :logged_in
     end

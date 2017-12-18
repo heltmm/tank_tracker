@@ -20,3 +20,31 @@
    bottom:0;
    width:100%;
 }
+.avatar {
+    background-color: white;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    text-align: center;
+    img { width: 100% }
+}
+.navbar > a {
+  margin: 8px 0px
+}
+.custom{
+  margin-right: 24px;
+  margin-left: 24px;
+}
+.dropdown-menu-sw {
+  right: 0;
+  left: auto;
+}
+.nav-link {
+  padding: 0;
+}
+.dropdown-toggle::after {
+  color: white;
+}

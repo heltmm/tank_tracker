@@ -1,0 +1,12 @@
+
+<%= form_tag("/package_update", method: "patch") do %>
+  <p>Package Update</p>
+  <%= label_tag(:bbt_number, "BBT Number") %>
+  <%= number_field_tag(:bbt_number) %><br>
+  <%= label_tag(:volume, "Volume") %>
+  <%= number_field_tag(:volume) %><br>
+  <%= label_tag(:refill, "Refill") %>
+  <%= check_box_tag(:refill, true ) %><br>
+
+  <%= submit_tag("Update") %>
+<% end %>

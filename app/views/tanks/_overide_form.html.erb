@@ -1,0 +1,15 @@
+
+<%= form_tag("/package_update", method: "patch") do %>
+  <p>Overide Tank</p>
+  <%= label_tag(:number, "FV Number") %>
+  <%= number_field_tag(:number) %><br>
+  <%= label_tag(:volume, "Volume") %>
+  <%= number_field_tag(:volume) %><br>
+  <%= label_tag(:brand, "Brand") %>
+  <%= text_field_tag(:brand) %><br>
+  <%= label_tag(:gyle, "Gyle") %>
+  <%= number_field_tag(:gyle) %><br>
+
+
+  <%= submit_tag("Update") %>
+<% end %>

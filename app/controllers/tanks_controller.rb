@@ -23,12 +23,6 @@ class TanksController < ApplicationController
     end
   end
 
-  def update
-    binding.pry
-  end
-
-
-
   def cellar_update
     @tank = Tank.find_by_number(cellar_update_params[:number], current_user)
     @tank.update(cellar_update_params)
@@ -44,6 +38,20 @@ class TanksController < ApplicationController
     @tanks = Tank.where(user_id: current_user.id)
     render :logged_in
   end
+
+  def transfer_update
+
+  end
+
+  def package_update
+
+  end
+
+  def overide
+
+  end
+
+
 
   private
   def tank_params

@@ -29,8 +29,20 @@
         <% end %>
       </li>
     </ul>
-
+    <% flash.each do |key, value| %>
+      <% case key %>
+      <% when "notice" %>
+        <% type = 'success' %>
+      <% when "alert" %>
+        <% type = 'danger' %>
+      <% else %>
+        <% type = 'primary' %>
+      <% end %>
+      <div class="alert alert-<%= type %>">
+        <%= value %>
+      </div>
+    <% end %>
     <%= yield %>
-    
+
   </body>
 </html>

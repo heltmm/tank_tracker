@@ -24,6 +24,7 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
+    binding.pry
     @tank = Tank.find_by_number(cellar_update_params[:number], current_user)
     @tank.update(cellar_update_params)
     @tanks = Tank.where(brewery_id: current_user.brewery.id)
@@ -34,13 +35,13 @@ class TanksController < ApplicationController
     params = brewer_update_params
     params[:status] = "Active"
     @tank = Tank.find_by_number(params[:number], current_user).first
-    binding.pry
     if @tank.status === "Sanitized"
       @tank.update(params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id)
       render :logged_in
     else
-
+      @tanks = Tank.where(brewery_id: current_user.brewery.id)
+      flash["alert"] = "Beer can only go into a sanitzed tank!"
       render :logged_in
     end
   end

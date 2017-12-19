@@ -13,6 +13,7 @@ class CreateTanks < ActiveRecord::Migration[5.1]
       t.column :date_brewed, :date
       t.column :date_filtered, :date
       t.column :initials, :string
+      t.column :refill_count, :integer, default: 0
     end
   end
 end

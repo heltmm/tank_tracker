@@ -33,6 +33,12 @@ class TanksController < ApplicationController
         format.html {redirect_to tanks_path}
         format.js { render "message" }
       end
+    elsif tank_params[:status] === "Dirty"
+      @tank.reset_tank
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "tank_update" }
+      end
     else
       @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
@@ -96,8 +102,14 @@ class TanksController < ApplicationController
   end
 
   def package_update
-    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
-    if update_params[:volume] > @tank.volume
+    @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
+    if update_params[:refill] and @tank.status === "Active"
+      @tank.refill_tank
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "tank_update" }
+      end
+    elsif update_params[:volume].to_i > @tank.volume
       @message = "Can not package more beer than there is!"
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
@@ -105,7 +117,7 @@ class TanksController < ApplicationController
         format.js { render "message" }
       end
     else
-      @tank.volume -= update_params[:volume]
+      @tank.volume -= update_params[:volume].to_i
       @tank.save
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
@@ -122,7 +134,7 @@ class TanksController < ApplicationController
   end
 
   def acid_update
-    @tank = Tank.find_by_number(update_params[:number], tank_params[:tank_type], current_user).first
+    @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
     @tank.update(update_params)
     @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
     render :logged_in
@@ -132,11 +144,11 @@ class TanksController < ApplicationController
 
   private
   def tank_params
-    params.require(:tank).permit(:brewery_id, :tank_type, :number, :status, :gyle, :brand, :volume, :dryhopped, :last_acid, :date_brewed, :date_filtered, :initials)
+    params.require(:tank).permit(:brewery_id, :tank_type, :number, :status, :gyle, :brand, :volume, :dryhopped, :last_acid, :date_brewed, :date_filtered, :initials, :refill_count)
   end
 
   def update_params
-    update_params = params.permit(:number, :brewer_id, :status, :initials, :brand, :gyle, :volume, :last_acid, :bbt_number, :refill, :from_number, :to_number, :all, :tank_type, :from_tank_type, :to_tank_type )
+    update_params = params.permit(:number, :brewer_id, :status, :initials, :brand, :gyle, :volume, :last_acid, :bbt_number, :refill, :from_number, :to_number, :all, :tank_type, :from_tank_type, :to_tank_type, :refill_count )
   end
 
 

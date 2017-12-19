@@ -11,12 +11,13 @@ User.create!(email: "test@gmail.com", password: "password")
 Brewery.create!(name: "Good Brewing Company", user_id: User.last.id)
 
 count = 1
-8.times do
-  Tank.create!(tank_type: "FV", brewery_id: Brewery.last.id, number: count)
+12.times do
+  Tank.create!(tank_type: "FV", brewery_id: Brewery.last.id, number: count, last_acid: "2017/10/17")
   count += 1
 end
 
-3.times do
+count = 1
+5.times do
   Tank.create!(tank_type: "BBT", brewery_id: Brewery.last.id, number: count)
   count += 1
 end

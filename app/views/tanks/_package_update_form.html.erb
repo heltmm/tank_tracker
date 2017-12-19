@@ -1,9 +1,9 @@
 
 <%= form_tag("/package_update", method: "patch", remote: true) do %>
   <p>Package Update</p>
-  <%= hidden_field_tag(:tank_type, :value => "BBT") %>
-  <%= label_tag(:bbt_number, "BBT Number") %>
-  <%= number_field_tag(:bbt_number, nil, :required => true) %><br>
+  <%= hidden_field_tag(:tank_type, "BBT") %>
+  <%= label_tag(:number, "BBT Number") %>
+  <%= number_field_tag(:number, nil, :required => true) %><br>
   <%= label_tag(:volume, "Volume") %>
   <%= number_field_tag(:volume) %><br>
   <%= label_tag(:refill, "Refill") %>

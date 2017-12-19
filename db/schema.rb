@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20171218162406) do
     t.date "date_brewed"
     t.date "date_filtered"
     t.string "initials"
+    t.integer "refill_count", default: 0
   end
 
   create_table "users", force: :cascade do |t|

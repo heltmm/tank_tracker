@@ -93,7 +93,7 @@ class TanksController < ApplicationController
   end
 
   def update_params
-    update_params = params.permit(:number, :brewer_id, :status, :initials, :brand, :gyle, :volume, :last_acid, :bbt_number, :refill, :from_number, :to_number, :all )
+    update_params = params.permit(:number, :brewer_id, :status, :initials, :brand, :gyle, :volume, :last_acid, :bbt_number, :refill, :from_number, :to_number, :all, :tank_type, :from_tank_type, :to_tank_type )
   end
 
 

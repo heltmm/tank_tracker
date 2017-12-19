@@ -1,7 +1,7 @@
 
 <% if @tanks.any? %>
   <% @tanks.each do |tank| %>
-    <div id="tank<%= tank.number %>"<%= render 'tank', :tank => tank %>
+    <div id="tank<%= tank.id %>"<%= render 'tank', :tank => tank %>
   <% end %><br>
 <% else %>
   <h1>Tank Page</h1>

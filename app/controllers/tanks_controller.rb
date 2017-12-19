@@ -27,15 +27,18 @@ class TanksController < ApplicationController
   def cellar_update
     @tank = Tank.find_by_number(tank_params[:number], current_user).first
     if tank_params[:status] === "Sanitized" and @tank.status != "Clean"
-      flash["alert"] = "Tank must be cleaned before Sanitized!"
+      @message = "Tank must be cleaned before Sanitized!"
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
-      render :logged_in
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "message" }
+      end
     else
       @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "cellar_update" }
+        format.js { render "tank_update" }
       end
     end
   end
@@ -45,7 +48,10 @@ class TanksController < ApplicationController
     if @tank.status === "Sanitized"
       @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
-      render :logged_in
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "tank_update" }
+      end
     else
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       flash["alert"] = "Beer can only go into a Sanitzed tank!"

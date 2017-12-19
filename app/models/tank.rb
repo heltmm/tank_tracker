@@ -4,7 +4,7 @@ class Tank < ActiveRecord::Base
   validates :tank_type, :presence => true
   validates :number, :presence => true
 
-  scope :find_by_number, -> (number, current_user) { where(number: number, brewery_id: current_user.brewery.id)}
+  scope :find_by_number, -> (number, type, current_user) { where(number: number, brewery_id: current_user.brewery.id, tank_type: type)}
 
   def reset_tank
     binding.pry

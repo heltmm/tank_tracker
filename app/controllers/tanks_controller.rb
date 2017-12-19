@@ -25,7 +25,7 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    @tank = Tank.find_by_number(tank_params[:number], current_user).first
+    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
     if tank_params[:status] === "Sanitized" and @tank.status != "Clean"
       @message = "Tank must be cleaned before Sanitized!"
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
@@ -44,7 +44,7 @@ class TanksController < ApplicationController
   end
 
   def brewer_update
-    @tank = Tank.find_by_number(tank_params[:number], current_user).first
+    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
     if @tank.status === "Sanitized"
       @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
@@ -60,8 +60,8 @@ class TanksController < ApplicationController
   end
 
   def transfer_update
-      @start_tank = Tank.find_by_number(update_params[:from_number], current_user).first
-      @finish_tank = Tank.find_by_number(update_params[:to_number], current_user).first
+      @start_tank = Tank.find_by_number(update_params[:from_number], tank_params[:from_tank_type], current_user).first
+      @finish_tank = Tank.find_by_number(update_params[:to_number], tank_params[:to_tank_type], current_user).first
       if update_params[:all] === "true"
         @finish_tank.update({:volume => @start_tank.volume, :brand => @start_tank.brand, :gyle => @start_tank.gyle, :status => @start_tank.status, :date_brewed => @start_tank.date_brewed })
         @start_tank.reset_tank

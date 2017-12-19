@@ -4,19 +4,21 @@
 <% @tanks.each do |tank| %>
   <div class="d-inline-block">
     <div class='tank'>
-      <p class='top'><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
+      <p class='top-image'><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
       <% case tank.status %>
       <% when "Sanitized" %>
         <% type = 'success' %>
-        <p><%= tank.initials %></p>
+        <p class="centered-image"><%= tank.initials %></p>
       <% when "Clean" %>
         <% type = 'info' %>
+        <p class="centered-image"><%= tank.initials %></p>
       <% when "Dirty" %>
         <% type = 'danger' %>
       <% when "Active" %>
-        <p class="centered"><%= tank.gyle %><br>
-        <%= tank.brand %><br>
-        <%= tank.volume %></p>
+        <% type = 'warning' %>
+        <p class="centered-image"><%= tank.gyle %><br>
+        <%= tank.brand %></p><br>
+        <p class="bottom-image"><%= tank.volume %></p>
       <% else %>
            <% type = '' %>
       <% end %>

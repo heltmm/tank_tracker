@@ -1,5 +1,5 @@
 
-<%= form_tag("/package_update", method: "patch") do %>
+<%= form_tag("/package_update", method: "patch", remote: true) do %>
   <p>Package Update</p>
   <%= label_tag(:bbt_number, "BBT Number") %>
   <%= number_field_tag(:bbt_number, nil, :required => true) %><br>

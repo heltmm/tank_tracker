@@ -1,5 +1,5 @@
 
-<%= form_for @tank, :url => {:action => "cellar_update"}, :method => "patch" do |f|%>
+<%= form_for @tank, :url => {:action => "cellar_update"}, :method => "patch", remote: true do |f|%>
   <p>Cellar Update</p>
   <%= f.label(:number, "Tank Number") %>
   <%= f.number_field(:number, :required => true) %><br>

@@ -33,7 +33,10 @@ class TanksController < ApplicationController
     else
       @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
-      render :logged_in
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "cellar_update" }
+      end
     end
   end
 

@@ -1,0 +1,25 @@
+<div class="d-inline-block">
+  <div class='tank'>
+    <p class='top-image'><%= tank.tank_type %><%= tank.number %><br><%= tank.status%></p>
+    <% case tank.status %>
+    <% when "Sanitized" %>
+      <% type = 'success' %>
+      <p class="centered-image"><%= tank.initials %></p>
+    <% when "Clean" %>
+      <% type = 'info' %>
+      <p class="centered-image"><%= tank.initials %></p>
+    <% when "Dirty" %>
+      <% type = 'danger' %>
+    <% when "Active" %>
+      <% type = 'warning' %>
+      <p class="centered-image"><%= tank.gyle %><br>
+      <%= tank.brand %><br>
+      <%= tank.date_brewed %></p>
+      <p class="bottom-image"><%= tank.volume %></p>
+    <% else %>
+         <% type = '' %>
+    <% end %>
+
+    <%= image_tag('fv.png', class: "bg-#{type}")%>
+  </div>
+</div>

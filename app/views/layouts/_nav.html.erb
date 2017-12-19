@@ -10,7 +10,6 @@
         <% @tanks.each do |tank| %>
           <% if tank.tank_type === "FV" %>
 
-
             <% if needs_acid(tank.last_acid, 3) %>
               <% acid = "text-danger" %>
             <% end %>

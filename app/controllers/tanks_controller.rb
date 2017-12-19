@@ -62,24 +62,43 @@ class TanksController < ApplicationController
   def transfer_update
       @start_tank = Tank.find_by_number(update_params[:from_number], update_params[:from_tank_type], current_user).first
       @finish_tank = Tank.find_by_number(update_params[:to_number], update_params[:to_tank_type], current_user).first
-      if update_params[:all] === "true"
+      if @finish_tank.status != "Sanitized"
+        @message = "Can't Transfer Beer into an unsanitized tank!"
+        @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "message" }
+        end
+      elsif update_params[:all] === "true" or update_params[:volume].to_i === @start_tank.volume
         @start_tank.transfer_to(@finish_tank, @start_tank.volume)
         @start_tank.reset_tank
-      elsif update_params[:volume] > @start_tank.volume
-        @message = "Can't Transfer More beer than there is!"
+        @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "transfer_update" }
+        end
+      elsif update_params[:volume].to_i > @start_tank.volume
+        @message = "Can not transfer More beer than there is!"
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "message" }
+        end
       else
-        @start_tank.transfer_to(@finish_tank, update_params[:volume])
-        @start_tank.volume -= update_params[:volume]
+        @start_tank.transfer_to(@finish_tank, update_params[:volume].to_i)
+        @start_tank.volume -= update_params[:volume].to_i
         @start_tank.save
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "transfer_update" }
+        end
       end
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
-      render :logged_in
   end
 
   def package_update
     @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
     if update_params[:volume] > @tank.volume
-      @message = "Can't package more beer than there is!"
+      @message = "Can not package more beer than there is!"
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
@@ -103,7 +122,7 @@ class TanksController < ApplicationController
   end
 
   def acid_update
-    @tank = Tank.find_by_number(update_params[:number], current_user).first
+    @tank = Tank.find_by_number(update_params[:number], tank_params[:tank_type], current_user).first
     @tank.update(update_params)
     @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
     render :logged_in

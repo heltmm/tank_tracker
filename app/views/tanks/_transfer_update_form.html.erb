@@ -1,9 +1,11 @@
 
 <%= form_tag("/transfer_update", method: "patch", remote: true) do %>
   <p>Transfer Update</p>
-  <%= label_tag(:from_number, "From FV") %>
+  <%= label_tag(:from_number, "From") %>
+  <%= select_tag(:from_tank_type, options_for_select([["FV", "FV"], ["BBT", "BBT"]])) %>
   <%= number_field_tag(:from_number, nil, :required => true) %><br>
-  <%= label_tag(:to_number, "To FV") %>
+  <%= label_tag(:to_number, "To") %>
+  <%= select_tag(:to_tank_type, options_for_select([["FV", "FV"], ["BBT", "BBT"]])) %>
   <%= number_field_tag(:to_number, nil, :required => true) %><br>
   <%= label_tag(:volume, "Volume") %>
   <%= number_field_tag(:volume, nil, :required => true) %><br>

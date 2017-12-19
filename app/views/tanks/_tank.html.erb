@@ -20,6 +20,10 @@
          <% type = '' %>
     <% end %>
 
-    <%= image_tag('fv.png', class: "bg-#{type}")%>
+    <% if tank.tank_type === "FV" %>
+      <%= image_tag('fv.png', class: "bg-#{type}")%>
+    <% else %>
+      <%= image_tag('BBT.png', class: "bg-#{type}")%>
+    <% end %>
   </div>
 </div>

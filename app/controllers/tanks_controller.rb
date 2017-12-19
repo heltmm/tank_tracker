@@ -60,7 +60,6 @@ class TanksController < ApplicationController
   end
 
   def transfer_update
-    binding.pry
       @start_tank = Tank.find_by_number(update_params[:from_number], current_user).first
       @finish_tank = Tank.find_by_number(update_params[:to_number], current_user).first
       if update_params[:all] === "true"

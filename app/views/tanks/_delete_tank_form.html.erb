@@ -1,4 +1,4 @@
-<%= form_for [@tank] do |f| %>
+<%= form_for @tank, :url => {:action => "destroy"}, :method => "delete" do |f| %>
   <%= f.label :id, "Tank" %>
   <%= f.select(:id, options_for_select(@tanks_select)) %><br>
   <%= f.hidden_field(:brewery_id, :value => current_user.brewery.id) %>

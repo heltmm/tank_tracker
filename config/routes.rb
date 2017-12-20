@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   patch "package_update", to: "tanks#package_update"
   patch "overide", to: "tanks#overide"
   patch "acid_update", to: "tanks#acid_update"
+  delete "destroy", to: "tanks#destroy"
 
   resources :tanks
 

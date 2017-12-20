@@ -13,17 +13,27 @@ class TanksController < ApplicationController
     @tank = Tank.new
     @tanks = current_user.brewery.tanks.sort
     @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
+  end
 
+  def destroy
+    @tanks = current_user.brewery.tanks.sort
+    @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
+    @tank = Tank.find(tank_params[:id])
+    if @tank.destroy
+      flash[:alert] = "Tank successfully removed!"
+
+    end
+    render :new
   end
 
   def create
+    @tanks = current_user.brewery.tanks.sort
+    @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
     @tank = Tank.new(tank_params)
     if @tank.save
       flash[:notice] = "Tank successfully added!"
-      redirect_to tanks_path
-    else
-      render :new
     end
+    render :new
   end
 
   def cellar_update
@@ -187,7 +197,7 @@ class TanksController < ApplicationController
 
   private
   def tank_params
-    params.require(:tank).permit(:brewery_id, :tank_type, :number, :status, :gyle, :brand, :volume, :dryhopped, :last_acid, :date_brewed, :date_filtered, :initials, :refill_count)
+    params.require(:tank).permit(:brewery_id, :tank_type, :number, :status, :gyle, :brand, :volume, :dryhopped, :last_acid, :date_brewed, :date_filtered, :initials, :refill_count, :id)
   end
 
   def update_params

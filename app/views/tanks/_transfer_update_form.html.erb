@@ -1,5 +1,5 @@
 
-<%= form_tag("/transfer_update", method: "patch", remote: true) do %>
+<%= form_tag("/transfer_update", :id => "transfer_update_form", method: "patch", remote: true) do %>
   <p>Transfer Update</p>
   <%= label_tag(:from_number, "From") %>
   <%= select_tag(:from_tank_type, options_for_select([["FV", "FV"], ["BBT", "BBT"]])) %>

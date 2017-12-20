@@ -22,3 +22,13 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+* Make acid tracking a sub html file and ajax the update
+* Tank overide controller, ajax, js
+* make a more clear key
+* more custom brewery settings
+* move tanks link in navbar, better color
+* make a sort tanks scope in model
+* move more logic from controller to model
+* delete tank functionality and view

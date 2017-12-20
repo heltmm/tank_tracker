@@ -1,5 +1,5 @@
 
-<%= form_for @tank, :url => {:action => "brewer_update"}, :method => "patch", remote: true do |f|%>
+<%= form_for @tank, :url => {:action => "brewer_update"}, :html => {:id => "brew_update_form"}, :method => "patch", remote: true do |f|%>
   <p>Brew Update</p>
   <%= f.hidden_field(:status, :value => "Active") %>
   <%= f.hidden_field(:tank_type, :value => "FV") %>

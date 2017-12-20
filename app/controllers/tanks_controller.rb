@@ -37,14 +37,14 @@ class TanksController < ApplicationController
       @tank.reset_tank
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "tank_update" }
+        format.js { render "cellar_update" }
       end
     else
       @tank.update(tank_params)
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "tank_update" }
+        format.js { render "cellar_update" }
       end
     end
   end
@@ -56,7 +56,7 @@ class TanksController < ApplicationController
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "tank_update" }
+        format.js { render "brew_update" }
       end
     else
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
@@ -107,7 +107,7 @@ class TanksController < ApplicationController
       @tank.refill_tank
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "tank_update" }
+        format.js { render "package_update" }
       end
     elsif update_params[:volume].to_i > @tank.volume
       @message = "Can not package more beer than there is!"
@@ -122,7 +122,7 @@ class TanksController < ApplicationController
       @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "tank_update" }
+        format.js { render "package_update" }
       end
     end
 

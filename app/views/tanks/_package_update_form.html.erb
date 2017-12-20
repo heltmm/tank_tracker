@@ -1,5 +1,5 @@
 
-<%= form_tag("/package_update", method: "patch", remote: true) do %>
+<%= form_tag("/package_update", :id => "package_update_form", method: "patch", remote: true) do %>
   <p>Package Update</p>
   <%= hidden_field_tag(:tank_type, "BBT") %>
   <%= label_tag(:number, "BBT Number") %>

@@ -1,7 +1,7 @@
 class TanksController < ApplicationController
   def index
     if current_user
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
+      @tanks = current_user.brewery.tanks
       @tank = Tank.new
       render :logged_in
     else
@@ -10,7 +10,6 @@ class TanksController < ApplicationController
   end
 
   def new
-    @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
     @tank = Tank.new
   end
 
@@ -130,7 +129,7 @@ class TanksController < ApplicationController
   def acid_update
     @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
     @tank.update(update_params)
-    @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
+    @tanks = current_user.brewery.tanks
     render :logged_in
   end
 

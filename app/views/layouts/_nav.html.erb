@@ -8,21 +8,7 @@
     <div class="dropdown-menu" id="acid-dropdown" aria-labelledby="navbarDropdownMenuLink">
       <% if @tanks %>
         <% @tanks.each do |tank| %>
-          <% if tank.tank_type === "FV" %>
-
-            <% if needs_acid(tank.last_acid, 3) %>
-              <% acid = "text-danger" %>
-            <% end %>
-            <p>
-              FV<%= tank.number%> Last Acid: <span class="<%= acid %>"><%= tank.last_acid%></span>
-              Update:   <%= form_tag("/acid_update", method: "patch") do %>
-                          <%= hidden_field_tag(:number, tank.number) %>
-                          <%= hidden_field_tag(:tank_type, tank.tank_type) %>
-                          <%= date_field_tag :last_acid, :required => true %>
-                          <%= submit_tag("OK") %>
-                        <% end %>
-            </p>
-          <% end %>
+          <div id="acid_tank<%= tank.id %>"><%= render "layouts/acid_tank", tank: tank %></div>
         <% end %>
       <% end %>
     </div>

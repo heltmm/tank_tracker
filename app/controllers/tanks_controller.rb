@@ -1,7 +1,7 @@
 class TanksController < ApplicationController
   def index
     if current_user
-      @tanks = current_user.brewery.tanks
+      @tanks = current_user.brewery.tanks.sort
       @tank = Tank.new
       render :logged_in
     else
@@ -127,10 +127,14 @@ class TanksController < ApplicationController
   end
 
   def acid_update
+    binding.pry
     @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
     @tank.update(update_params)
-    @tanks = current_user.brewery.tanks
-    render :logged_in
+    binding.pry
+    respond_to do |format|
+      format.html {redirect_to tanks_path}
+      format.js { render "layouts/acid_update" }
+    end
   end
 
 

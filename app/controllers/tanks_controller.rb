@@ -122,10 +122,18 @@ class TanksController < ApplicationController
 
   def overide
     @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
-    @tank.update(tank_params)
-    respond_to do |format|
-      format.html {redirect_to tanks_path}
-      format.js { render "overide" }
+    if @tank.status === "Active"
+      @tank.update(tank_params)
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "overide" }
+      end
+    else
+      @message = "Can Only Overide an Active tank!"
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "message" }
+      end
     end
   end
 

@@ -11,6 +11,9 @@ class TanksController < ApplicationController
 
   def new
     @tank = Tank.new
+    @tanks = current_user.brewery.tanks.sort
+    @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
+
   end
 
   def create

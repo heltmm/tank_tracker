@@ -21,8 +21,8 @@
       <div class="dropdown-menu dropdown-menu-sw" aria-labelledby="navbarDropdownMenuLink">
         <p class="custom">Signed in as <%= current_user.brewery.name %></p>
         <div class="dropdown-divider"></div>
-        <%= link_to 'Edit Profile',edit_user_registration_path, :class => "dropdown-item" %>
-        <%= link_to 'Add Tanks', new_tank_path, :class => "dropdown-item" %>
+        <%= link_to 'Edit Settings',edit_user_registration_path, :class => "dropdown-item" %>
+        <%= link_to 'Edit Tanks', new_tank_path, :class => "dropdown-item" %>
         <%= link_to 'Logout', destroy_user_session_path, :class => "dropdown-item", method: :delete %>
 
       </div>

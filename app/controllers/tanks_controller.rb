@@ -24,48 +24,61 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
-    if tank_params[:status] === "Sanitized" and @tank.status != "Clean"
-      @message = "Tank must be cleaned before Sanitized!"
+    if @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
+      if tank_params[:status] === "Sanitized" and @tank.status != "Clean"
+        @message = "Tank must be cleaned before Sanitized!"
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "message" }
+        end
+      elsif tank_params[:status] === "Dirty"
+        @tank.reset_tank
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "cellar_update" }
+        end
+      else
+        @tank.update(tank_params)
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "cellar_update" }
+        end
+      end
+    else
+      @message = "Can not Find Tank"
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "message" }
-      end
-    elsif tank_params[:status] === "Dirty"
-      @tank.reset_tank
-      respond_to do |format|
-        format.html {redirect_to tanks_path}
-        format.js { render "cellar_update" }
-      end
-    else
-      @tank.update(tank_params)
-      respond_to do |format|
-        format.html {redirect_to tanks_path}
-        format.js { render "cellar_update" }
       end
     end
   end
 
   def brewer_update
-    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
-    if @tank.status === "Sanitized"
-      @tank.update(tank_params)
-      respond_to do |format|
-        format.html {redirect_to tanks_path}
-        format.js { render "brew_update" }
+    if @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
+      if @tank.status === "Sanitized"
+        @tank.update(tank_params)
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "brew_update" }
+        end
+      else
+        @message = "Beer can only go into a Sanitzed tank!"
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "brew_update" }
+        end
       end
     else
-      @message = "Beer can only go into a Sanitzed tank!"
+      @message = "Can not Find Tank"
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "brew_update" }
+        format.js { render "message" }
       end
     end
   end
 
   def transfer_update
-      @start_tank = Tank.find_by_number(update_params[:from_number], update_params[:from_tank_type], current_user).first
-      @finish_tank = Tank.find_by_number(update_params[:to_number], update_params[:to_tank_type], current_user).first
+    if @start_tank = Tank.find_by_number(update_params[:from_number], update_params[:from_tank_type], current_user).first or @finish_tank = Tank.find_by_number(update_params[:to_number], update_params[:to_tank_type], current_user).first
       if @finish_tank.status != "Sanitized"
         @message = "Can't Transfer Beer into an unsanitized tank!"
         respond_to do |format|
@@ -94,42 +107,63 @@ class TanksController < ApplicationController
           format.js { render "transfer_update" }
         end
       end
-  end
-
-  def package_update
-    @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
-    if update_params[:refill] and @tank.status === "Active"
-      @tank.refill_tank
-      respond_to do |format|
-        format.html {redirect_to tanks_path}
-        format.js { render "package_update" }
-      end
-    elsif update_params[:volume].to_i > @tank.volume
-      @message = "Can not package more beer than there is!"
+    else
+      @message = "Can not Find Tank"
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "message" }
       end
+    end
+  end
+
+  def package_update
+    if @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
+      if update_params[:refill] and @tank.status === "Active"
+        @tank.refill_tank
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "package_update" }
+        end
+      elsif update_params[:volume].to_i > @tank.volume
+        @message = "Can not package more beer than there is!"
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "message" }
+        end
+      else
+        @tank.volume -= update_params[:volume].to_i
+        @tank.save
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "package_update" }
+        end
+      end
     else
-      @tank.volume -= update_params[:volume].to_i
-      @tank.save
+      @message = "Can not Find Tank"
       respond_to do |format|
         format.html {redirect_to tanks_path}
-        format.js { render "package_update" }
+        format.js { render "message" }
       end
     end
   end
 
   def overide
-    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
-    if @tank.status === "Active"
-      @tank.update(tank_params)
-      respond_to do |format|
-        format.html {redirect_to tanks_path}
-        format.js { render "overide" }
+    if @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
+      if @tank.status === "Active"
+        @tank.update(tank_params)
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "overide" }
+        end
+      else
+        @message = "Can Only Overide an Active tank!"
+        respond_to do |format|
+          format.html {redirect_to tanks_path}
+          format.js { render "message" }
+        end
       end
     else
-      @message = "Can Only Overide an Active tank!"
+      @message = "Can not Find Tank"
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "message" }

@@ -118,12 +118,15 @@ class TanksController < ApplicationController
         format.js { render "package_update" }
       end
     end
-
-
   end
 
   def overide
     @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
+    @tank.update(tank_params)
+    respond_to do |format|
+      format.html {redirect_to tanks_path}
+      format.js { render "overide" }
+    end
   end
 
   def acid_update

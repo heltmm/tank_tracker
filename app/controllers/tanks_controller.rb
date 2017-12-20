@@ -28,7 +28,6 @@ class TanksController < ApplicationController
     @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
     if tank_params[:status] === "Sanitized" and @tank.status != "Clean"
       @message = "Tank must be cleaned before Sanitized!"
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "message" }
@@ -41,7 +40,6 @@ class TanksController < ApplicationController
       end
     else
       @tank.update(tank_params)
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "cellar_update" }
@@ -53,15 +51,16 @@ class TanksController < ApplicationController
     @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
     if @tank.status === "Sanitized"
       @tank.update(tank_params)
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "brew_update" }
       end
     else
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
-      flash["alert"] = "Beer can only go into a Sanitzed tank!"
-      render :logged_in
+      @message = "Beer can only go into a Sanitzed tank!"
+      respond_to do |format|
+        format.html {redirect_to tanks_path}
+        format.js { render "brew_update" }
+      end
     end
   end
 
@@ -70,7 +69,6 @@ class TanksController < ApplicationController
       @finish_tank = Tank.find_by_number(update_params[:to_number], update_params[:to_tank_type], current_user).first
       if @finish_tank.status != "Sanitized"
         @message = "Can't Transfer Beer into an unsanitized tank!"
-        @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
         respond_to do |format|
           format.html {redirect_to tanks_path}
           format.js { render "message" }
@@ -78,7 +76,6 @@ class TanksController < ApplicationController
       elsif update_params[:all] === "true" or update_params[:volume].to_i === @start_tank.volume
         @start_tank.transfer_to(@finish_tank, @start_tank.volume)
         @start_tank.reset_tank
-        @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
         respond_to do |format|
           format.html {redirect_to tanks_path}
           format.js { render "transfer_update" }
@@ -98,7 +95,6 @@ class TanksController < ApplicationController
           format.js { render "transfer_update" }
         end
       end
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
   end
 
   def package_update
@@ -111,7 +107,6 @@ class TanksController < ApplicationController
       end
     elsif update_params[:volume].to_i > @tank.volume
       @message = "Can not package more beer than there is!"
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "message" }
@@ -119,7 +114,6 @@ class TanksController < ApplicationController
     else
       @tank.volume -= update_params[:volume].to_i
       @tank.save
-      @tanks = Tank.where(brewery_id: current_user.brewery.id).sort
       respond_to do |format|
         format.html {redirect_to tanks_path}
         format.js { render "package_update" }

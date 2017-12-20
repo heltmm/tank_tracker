@@ -24,7 +24,6 @@ Things you may want to cover:
 * ...
 
 
-* Make acid tracking a sub html file and ajax the update
 * Tank overide controller, ajax, js
 * make a more clear key
 * more custom brewery settings

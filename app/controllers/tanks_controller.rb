@@ -123,14 +123,12 @@ class TanksController < ApplicationController
   end
 
   def overide
-
+    @tank = Tank.find_by_number(tank_params[:number], tank_params[:tank_type],current_user).first
   end
 
   def acid_update
-    binding.pry
     @tank = Tank.find_by_number(update_params[:number], update_params[:tank_type], current_user).first
     @tank.update(update_params)
-    binding.pry
     respond_to do |format|
       format.html {redirect_to tanks_path}
       format.js { render "layouts/acid_update" }

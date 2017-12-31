@@ -21,7 +21,6 @@ class TanksController < ApplicationController
     @tank = Tank.find(tank_params[:id])
     if @tank.destroy
       flash[:alert] = "Tank successfully removed!"
-
     end
     render :new
   end
@@ -78,7 +77,7 @@ class TanksController < ApplicationController
         @message = "Beer can only go into a Sanitzed tank!"
         respond_to do |format|
           format.html {redirect_to tanks_path}
-          format.js { render "brew_update" }
+          format.js { render "message" }
         end
       end
     else

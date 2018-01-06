@@ -90,9 +90,9 @@ class TanksController < ApplicationController
   end
 
   def transfer_update
-    if @start_tank = Tank.find_by_number(update_params[:from_number], update_params[:from_tank_type], current_user).first or @finish_tank = Tank.find_by_number(update_params[:to_number], update_params[:to_tank_type], current_user).first
+    if @start_tank = Tank.find_by_number(update_params[:from_number], update_params[:from_tank_type], current_user).first and @finish_tank = Tank.find_by_number(update_params[:to_number], update_params[:to_tank_type], current_user).first
       if @finish_tank.status != "Sanitized"
-        @message = "Can't Transfer Beer into an unsanitized tank!"
+        @message = "Can not Transfer Beer into an unsanitized tank!"
         respond_to do |format|
           format.html {redirect_to tanks_path}
           format.js { render "message" }

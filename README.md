@@ -18,9 +18,6 @@ _A app to help breweries track tank status and reduce miscommunications and mist
 * Can override form if incorrectly assigned.
 * Cellerman can check acid status of tank and run acid if time frame necessitates.
 
-
-
-
 ## Setup
 
 * _clone from Github. run rails db:reset, rails s, go to localhost:3000_
@@ -34,8 +31,6 @@ _None_
 
 * make a more clear key
 * more custom brewery settings
-* move more logic from controller to model
-* fix bottom form to scroll
 
 ## Support and contact details
 

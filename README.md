@@ -22,6 +22,7 @@ _A app to help breweries track tank status and reduce miscommunications and mist
 
 * _clone from Github. run rails db:reset, rails s, go to localhost:3000_
 * _seeded with test account log in with tanks, email: test@gmail.com, password: password_
+* _deployed on herku at https://brewery-tank-tracker.herokuapp.com/_
 
 ## Known Bugs
 

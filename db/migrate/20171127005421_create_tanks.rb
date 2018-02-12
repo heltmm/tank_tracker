@@ -4,7 +4,7 @@ class CreateTanks < ActiveRecord::Migration[5.1]
       t.column :brewery_id, :integer
       t.column :tank_type, :string
       t.column :number, :integer
-      t.column :status, :string, default: "Clean"
+      t.column :status, :string
       t.column :gyle, :integer
       t.column :brand, :string
       t.column :volume, :integer

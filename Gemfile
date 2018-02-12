@@ -35,6 +35,8 @@ gem 'paperclip'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'newrelic_rpm'
+gem 'aasm'
+
 
 
 group :development, :test do
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'launchy'
   gem 'pry'
   gem 'shoulda-matchers'
+  gem 'factory_bot_rails'
 end
 
 group :development do

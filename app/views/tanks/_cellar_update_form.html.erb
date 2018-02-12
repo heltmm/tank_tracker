@@ -4,12 +4,12 @@
   <%= f.select :tank_type, [["FV", "FV"],["BBT", "BBT"]] %>
   <%= f.label(:number, "Number") %>
   <%= f.number_field(:number, :required => true) %><br>
-  <%= f.label(:status, "Dirty") %>
-  <%= f.radio_button(:status, "Dirty" ) %><br>
-  <%= f.label(:status, "Clean") %>
-  <%= f.radio_button(:status, "Clean" ) %><br>
-  <%= f.label(:status, "Sanitized") %>
-  <%= f.radio_button(:status, "Sanitized" ) %><br>
+  <%= f.label(:status, "dirty") %>
+  <%= f.radio_button(:status, "dirty" ) %><br>
+  <%= f.label(:status, "clean") %>
+  <%= f.radio_button(:status, "clean" ) %><br>
+  <%= f.label(:status, "sanitized") %>
+  <%= f.radio_button(:status, "sanitized" ) %><br>
   <%= f.label(:initials, "Initials") %>
   <%= f.text_field(:initials, :required => true) %><br>
   <%= f.submit("Update") %>

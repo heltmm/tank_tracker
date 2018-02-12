@@ -1,7 +1,7 @@
 
 <%= form_for @tank, :url => {:action => "brewer_update"}, :html => {:id => "brew_update_form"}, :method => "patch", remote: true do |f|%>
   <p>Brew Update</p>
-  <%= f.hidden_field(:status, :value => "Active") %>
+  <%= f.hidden_field(:status, :value => "active") %>
   <%= f.hidden_field(:tank_type, :value => "FV") %>
   <%= f.hidden_field(:date_brewed, :value => Time.now) %>
   <%= f.label(:number, "FV Number") %>

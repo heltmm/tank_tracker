@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218162406) do
+ActiveRecord::Schema.define(version: 20180212201023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +19,14 @@ ActiveRecord::Schema.define(version: 20171218162406) do
     t.integer "user_id"
     t.string "name"
     t.integer "acid_frequency", default: 3
+    t.integer "refill_frequency", default: 3
   end
 
   create_table "tanks", force: :cascade do |t|
     t.integer "brewery_id"
     t.string "tank_type"
     t.integer "number"
-    t.string "status", default: "Clean"
+    t.string "status"
     t.integer "gyle"
     t.string "brand"
     t.integer "volume"

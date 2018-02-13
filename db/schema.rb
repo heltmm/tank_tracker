@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20180212201023) do
     t.integer "user_id"
     t.string "name"
     t.integer "acid_frequency", default: 3
-    t.integer "refill_frequency", default: 3
+    t.integer "max_refills", default: 3
   end
 
   create_table "tanks", force: :cascade do |t|

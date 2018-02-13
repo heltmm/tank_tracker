@@ -23,9 +23,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
+    @brewery = current_user.brewery
     super do
-      binding.pry
-      current_user.brewery.update(:name => params[:user][:brewery][:name], :acid_frequency => params[:user][:brewery][:acid_frequency])
+      current_user.brewery.update(:name => params[:user][:brewery][:name], :acid_frequency => params[:user][:brewery][:acid_frequency], :max_refills => params[:user][:brewery][:max_refills])
     end
   end
 

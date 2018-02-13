@@ -1,0 +1,83 @@
+<% if @tanks.any? %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">Status</th>
+      <th scope="col">Gyle</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Volume</th>
+      <th scope="col">Last Acid</th>
+      <th scope="col">Date Brewed</th>
+      <th scope="col">Date Filtered</th>
+      <th scope="col">Current Initials</th>
+      <th scope="col">Refill Count</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+  <% @tanks.each do |tank| %>
+    <tr class="table-<%= status_to_color(tank) %>">
+      <th><%= tank.tank_type %><%= tank.number %></th>
+      <td><%= tank.status %></td>
+      <td><%= tank.gyle %></td>
+      <td><%= tank.brand %></td>
+      <td><%= tank.volume %></td>
+      <td><%= tank.last_acid %></td>
+      <td><%= tank.date_brewed %></td>
+      <td><%= tank.date_filtered %></td>
+      <td><%= tank.initials %></td>
+      <td><%= tank.refill_count %></td>
+    </tr>
+  <% end %><br>
+  </tbody>
+</table>
+<% else %>
+  <h1>Tank Page</h1>
+<% end %>
+
+
+
+
+<div class="bottom">
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "brew_update_form" %>
+    </div>
+  </div>
+
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "cellar_update_form" %>
+    </div>
+  </div>
+
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "transfer_update_form" %>
+    </div>
+  </div>
+
+
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "package_update_form" %>
+    </div>
+  </div>
+
+  <div class="d-inline-block">
+    <div class='card'>
+      <%= render "overide_form" %>
+    </div>
+  </div>
+  <div class="d-inline-block">
+    <div class='card'>
+      <p>Key</p>
+      <p class="text-info">clean</p>
+      <p class='text-success'>sanitized</p>
+      <p class='text-danger'>dirty</p>
+    </div>
+  </div>
+</div>

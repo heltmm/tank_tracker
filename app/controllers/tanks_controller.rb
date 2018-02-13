@@ -13,6 +13,16 @@ class TanksController < ApplicationController
     end
   end
 
+  def table
+    if current_user
+      @tanks = current_user.brewery.tanks.sort
+      @tank = Tank.new
+      render :table
+    else
+      render :index
+    end
+  end
+
   def new
     @tank = Tank.new
     @tanks = current_user.brewery.tanks.sort
@@ -82,11 +92,9 @@ class TanksController < ApplicationController
   end
 
   def transfer_update
-    binding.pry
     @start_tank = fetch_tank(:from_number, :from_tank_type)
     @finish_tank = fetch_tank(:to_number, :to_tank_type)
 
-    binding.pry
     if @start_tank && @finish_tank
       if !@finish_tank.sanitized?
         @message = "Can not Transfer Beer into an unsanitized tank!"
@@ -120,7 +128,6 @@ class TanksController < ApplicationController
   def package_update
     if @tank
       if tank_params[:refill] and @tank.active?
-        binding.pry
         @tank.refill!
         respond_to do |format|
           format.html {redirect_to tanks_path}

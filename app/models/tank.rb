@@ -45,13 +45,12 @@ class Tank < ActiveRecord::Base
   private
 
   def can_be_refilled?
-    binding.pry
-    self.refill_count <= self.brewery_refill_frequency
+    self.refill_count < self.brewery_refill_frequency
   end
 
-  def increment_refill_count
-    binding.pry
+  def increment_refill_counts
     self.refill_count += 1
+    self.initials = "Refill #{self.refill_count}"
     self.save
   end
 

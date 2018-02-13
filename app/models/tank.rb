@@ -7,6 +7,7 @@ class Tank < ActiveRecord::Base
 
   validates :tank_type, :presence => true
   validates :number, :presence => true
+  validates :number, uniqueness: { scope: :tank_type }
 
   aasm column: 'status' do
     state :dirty, :initial => true

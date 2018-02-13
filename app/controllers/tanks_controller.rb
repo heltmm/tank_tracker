@@ -5,7 +5,7 @@ class TanksController < ApplicationController
 
   def index
     if current_user
-      @tanks = current_user.brewery.tanks.sort
+      @tanks = current_user.brewery.tanks.order(tank_type: :desc, number: :asc)
       @tank = Tank.new
       render :logged_in
     else

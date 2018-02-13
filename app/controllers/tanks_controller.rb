@@ -15,7 +15,7 @@ class TanksController < ApplicationController
 
   def table
     if current_user
-      @tanks = current_user.brewery.tanks.sort
+      @tanks = current_user.brewery.tanks.order(tank_type: :desc, number: :asc)
       @tank = Tank.new
       render :table
     else
@@ -25,12 +25,12 @@ class TanksController < ApplicationController
 
   def new
     @tank = Tank.new
-    @tanks = current_user.brewery.tanks.sort
+    @tanks = current_user.brewery.tanks.order(tank_type: :desc, number: :asc)
     @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
   end
 
   def destroy
-    @tanks = current_user.brewery.tanks.sort
+    @tanks = current_user.brewery.tanks.order(tank_type: :desc, number: :asc)
     @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
     @tank = Tank.find(tank_params[:id])
     if @tank.destroy
@@ -40,7 +40,7 @@ class TanksController < ApplicationController
   end
 
   def create
-    @tanks = current_user.brewery.tanks.sort
+    @tanks = current_user.brewery.tanks.order(tank_type: :desc, number: :asc)
     @tanks_select = @tanks.map{|tank| [tank.tank_type + tank.number.to_s, tank.id ]}
     @tank = Tank.new(tank_params)
     if @tank.save
@@ -50,6 +50,7 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
+    # need to add logic to now allow status to active as brewer update handles that
     if @tank
       if tank_params[:status] == "sanitized" && !@tank.clean?
         @message = "Tank must be cleaned before Sanitized!"
@@ -58,7 +59,7 @@ class TanksController < ApplicationController
           format.js { render "message" }
         end
       elsif tank_params[:status] == "dirty"
-        @tank.empty
+        @tank.empty!
         respond_to do |format|
           format.html {redirect_to tanks_path}
           format.js { render "cellar_update" }
@@ -76,6 +77,7 @@ class TanksController < ApplicationController
   def brewer_update
     if @tank
       if @tank.sanitized?
+        @tank.start_brew
         @tank.update(tank_params)
         respond_to do |format|
           format.html {redirect_to tanks_path}

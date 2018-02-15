@@ -23,6 +23,18 @@ class TanksController < ApplicationController
     end
   end
 
+  def edit
+    @tank = Tank.find(params[:id])
+      respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def updated
+    @tank = Tank.find(params[:id])
+  end
+
   def new
     @tank = Tank.new
     @tanks = current_user.brewery.tanks.order(tank_type: :desc, number: :asc)
@@ -50,7 +62,7 @@ class TanksController < ApplicationController
   end
 
   def cellar_update
-    # need to add logic to now allow status to active as brewer update handles that
+    # need to add logic to not allow status to active as brewer update handles that
     if @tank
       if tank_params[:status] == "sanitized" && !@tank.clean?
         @message = "Tank must be cleaned before Sanitized!"

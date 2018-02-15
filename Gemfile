@@ -37,6 +37,9 @@ gem 'paperclip'
 gem 'newrelic_rpm'
 gem 'aasm'
 
+gem 'react-rails'
+gem 'webpacker'
+
 
 
 group :development, :test do

@@ -1,12 +1,14 @@
 
 <% if @tanks.any? %>
   <% @tanks.each do |tank| %>
-    <div id="tank<%= tank.id %>"<%= render 'tank', :tank => tank %>
+    <a href='#' data-toggle="modal" data-target="#exampleModal" onclick="modal.populateForm(<%= tank.to_json %>)" >
+      <div id="tank<%= tank.id %>"<%= render 'tank', :tank => tank %>
+    </a>
   <% end %><br>
 <% else %>
   <h1>Tank Page</h1>
 <% end %>
-
+<%= react_component("TankModal") %>
 <div class="bottom">
   <div class="d-inline-block">
     <div class='card'>
@@ -44,6 +46,51 @@
       <p class="text-info">clean</p>
       <p class='text-success'>sanitized</p>
       <p class='text-danger'>dirty</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tank-number"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="celler_update">
+          <p>Cellar Update</p>
+          <div id='initials'>
+            <label for='intials'>Initials</label>
+            <input type='text' name='initials' value=''>
+          </div>
+          <select id="change_status">
+          </select>
+        </div>
+        <div id="brewer_update">
+          <p>Brewer Update</p>
+          <input type="text" name="gyle" value="">
+          <input type="text" name="brand" value="">
+          <input type="text" name="volume" value="">
+        </div>
+        <div id="transfer_update">
+          <p>Transfer Update</p>
+          <label for="">Transfer To:</label>
+          <select id="tank">
+            <option value='sanitized'>Test</option>
+          </select>
+          <label for="volume">Volume</label>
+          <input type="text" name="volume" value="">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>

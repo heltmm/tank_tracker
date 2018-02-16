@@ -249,7 +249,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  bootstrap (~> 4.0.0.beta2.1)
+  bootstrap (~> 4.0.0)
   byebug
   coffee-rails (~> 4.2)
   devise

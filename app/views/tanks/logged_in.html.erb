@@ -1,9 +1,9 @@
 
 <% if @tanks.any? %>
   <% @tanks.each do |tank| %>
-    <a href='#' data-toggle="modal" data-target="#exampleModal" onclick="modal.populateForm(<%= tank.to_json %>)" >
-      <div id="tank<%= tank.id %>"<%= render 'tank', :tank => tank %>
-    </a>
+    <div class="d-inline-block">
+      <%= react_component("Tank", {tank: tank}) %>
+    </div>
   <% end %><br>
 <% else %>
   <h1>Tank Page</h1>
